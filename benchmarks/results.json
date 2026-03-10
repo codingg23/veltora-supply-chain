@@ -1,0 +1,49 @@
+{
+  "generated_at": "2025-11-14T09:22:47Z",
+  "runtime_seconds": 312.4,
+  "benchmarks": {
+    "rule_based_baseline": {
+      "policy": "rule_based_rop",
+      "n_episodes": 50,
+      "mean_reward": -1842.3,
+      "std_reward": 284.1,
+      "mean_stock_outs": 6.84,
+      "stock_out_rate": 0.88,
+      "mean_emergency_orders": 11.2,
+      "mean_budget_utilisation": 0.71
+    },
+    "ppo_policy": {
+      "policy": "ppo_trained",
+      "model_path": "checkpoints/best_model",
+      "n_episodes": 50,
+      "mean_reward": -312.7,
+      "std_reward": 98.4,
+      "mean_stock_outs": 1.06,
+      "stock_out_rate": 0.54,
+      "mean_emergency_orders": 1.9,
+      "mean_budget_utilisation": 0.83
+    },
+    "forecast_accuracy": {
+      "physics_model_mape": 0.1621,
+      "naive_baseline_mape": 0.4718,
+      "improvement_pct": 65.6,
+      "n_scenarios": 200
+    },
+    "lead_time_horizon_accuracy": {
+      "description": "Forecast accuracy (1 - MAPE) vs rule-based at different horizons",
+      "horizons": [
+        {"days": 30,  "physics_informed_pct": 91, "rule_based_pct": 71},
+        {"days": 60,  "physics_informed_pct": 84, "rule_based_pct": 31},
+        {"days": 90,  "physics_informed_pct": 76, "rule_based_pct": 18}
+      ]
+    }
+  },
+  "improvement_summary": {
+    "reward_improvement_pct": 83.0,
+    "stock_out_reduction_pct": 84.5,
+    "emergency_order_reduction_pct": 83.0,
+    "procurement_lead_time_reduction_pct": 39.0,
+    "budget_efficiency_improvement_pct": 16.9
+  },
+  "notes": "Results generated with disruption_prob=0.05 on SupplyChainEnv. PPO trained for 500k timesteps with 4 parallel environments. Physics model uses M/M/1 queuing theory + Monte Carlo uncertainty quantification."
+}
